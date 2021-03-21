@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LoopedScrollViewDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGa-pB-BpW" customClass="LoopedScrollView" customModule="LoopedScrollViewDemo" customModuleProvider="target">
+                                <rect key="frame" x="50" y="398" width="314" height="100"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="hi2-c2-EP5"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcZ-pA-TkA">
+                                <rect key="frame" x="0.0" y="398" width="50" height="100"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="26"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="chevron.left.circle" catalog="system" symbolScale="large" renderingMode="template"/>
+                                </state>
+                                <connections>
+                                    <action selector="leftButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="R7j-D2-3hg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vk1-xk-2xM">
+                                <rect key="frame" x="364" y="398" width="50" height="100"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="chevron.right.circle" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="rightButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="27r-0Q-ObD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EGa-pB-BpW" firstAttribute="leading" secondItem="jcZ-pA-TkA" secondAttribute="trailing" id="Bjk-Xi-7s8"/>
+                            <constraint firstItem="jcZ-pA-TkA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Cor-MH-g0C"/>
+                            <constraint firstItem="vk1-xk-2xM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="GlU-cG-Smn"/>
+                            <constraint firstItem="vk1-xk-2xM" firstAttribute="leading" secondItem="EGa-pB-BpW" secondAttribute="trailing" id="Hc8-sn-uHa"/>
+                            <constraint firstItem="EGa-pB-BpW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="JXg-Oo-LAb"/>
+                            <constraint firstItem="EGa-pB-BpW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Jkn-AE-aJI"/>
+                            <constraint firstItem="jcZ-pA-TkA" firstAttribute="top" secondItem="EGa-pB-BpW" secondAttribute="top" id="Kb1-1e-qdB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EGa-pB-BpW" secondAttribute="trailing" constant="50" id="S7f-Wb-2il"/>
+                            <constraint firstItem="vk1-xk-2xM" firstAttribute="bottom" secondItem="EGa-pB-BpW" secondAttribute="bottom" id="Vw9-Ch-TkR"/>
+                            <constraint firstItem="jcZ-pA-TkA" firstAttribute="bottom" secondItem="EGa-pB-BpW" secondAttribute="bottom" id="f3X-Am-Lqj"/>
+                            <constraint firstItem="vk1-xk-2xM" firstAttribute="top" secondItem="EGa-pB-BpW" secondAttribute="top" id="q0R-cZ-wqB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="loopedScrollView" destination="EGa-pB-BpW" id="N6c-oh-acf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="97" y="94"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="chevron.left.circle" catalog="system" width="128" height="121"/>
+        <image name="chevron.right.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
