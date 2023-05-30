@@ -33,7 +33,8 @@ struct DropViewDelegate: DropDelegate {
 
         // Swap Items
         withAnimation {
-            self.colors.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex))
+            self.colors.swapAt(fromIndex, toIndex)
+//            self.colors.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex))
         }
     }
 }

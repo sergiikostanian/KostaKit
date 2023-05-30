@@ -1,9 +1,5 @@
 import SwiftUI
 
-extension Color: Identifiable {
-    public var id: String { description }
-}
-
 class ViewModel: ObservableObject {
     var colorPosition: [String: CGRect] = [:]
     var draggedItem: String?

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		827581CE2A21F72100230168 /* LongDragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827581CD2A21F72100230168 /* LongDragView.swift */; };
-		827581D02A21F8C000230168 /* LongDragNative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827581CF2A21F8C000230168 /* LongDragNative.swift */; };
+		821E2A4A2A24B444005E71A6 /* ReorderableForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821E2A492A24B444005E71A6 /* ReorderableForEach.swift */; };
+		821E2A4C2A24B49B005E71A6 /* ReorderableForEachUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821E2A4B2A24B49B005E71A6 /* ReorderableForEachUser.swift */; };
 		827581D22A2211BF00230168 /* DragState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827581D12A2211BF00230168 /* DragState.swift */; };
 		82FC77252A1E01A4000AE66A /* CustomDragAndDropTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FC77242A1E01A4000AE66A /* CustomDragAndDropTestApp.swift */; };
 		82FC77272A1E01A4000AE66A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FC77262A1E01A4000AE66A /* ContentView.swift */; };
@@ -20,8 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		827581CD2A21F72100230168 /* LongDragView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongDragView.swift; sourceTree = "<group>"; };
-		827581CF2A21F8C000230168 /* LongDragNative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongDragNative.swift; sourceTree = "<group>"; };
+		821E2A492A24B444005E71A6 /* ReorderableForEach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableForEach.swift; sourceTree = "<group>"; };
+		821E2A4B2A24B49B005E71A6 /* ReorderableForEachUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableForEachUser.swift; sourceTree = "<group>"; };
 		827581D12A2211BF00230168 /* DragState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragState.swift; sourceTree = "<group>"; };
 		82FC77212A1E01A4000AE66A /* CustomDragAndDropTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomDragAndDropTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82FC77242A1E01A4000AE66A /* CustomDragAndDropTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDragAndDropTestApp.swift; sourceTree = "<group>"; };
@@ -44,6 +44,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		821E2A482A24B41A005E71A6 /* ReorderableForEach */ = {
+			isa = PBXGroup;
+			children = (
+				821E2A492A24B444005E71A6 /* ReorderableForEach.swift */,
+			);
+			path = ReorderableForEach;
+			sourceTree = "<group>";
+		};
 		82FC77182A1E01A4000AE66A = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +76,8 @@
 				82FC77322A1E0236000AE66A /* ColorItemView.swift */,
 				82FC77342A1E02D1000AE66A /* DropViewDelegate.swift */,
 				82FC77282A1E01A5000AE66A /* Assets.xcassets */,
+				821E2A4B2A24B49B005E71A6 /* ReorderableForEachUser.swift */,
+				821E2A482A24B41A005E71A6 /* ReorderableForEach */,
 				82FC77362A1E9BE9000AE66A /* CustomListReordering */,
 				82FC772A2A1E01A5000AE66A /* Preview Content */,
 			);
@@ -86,8 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				82FC77372A1E9C33000AE66A /* ReorderableList.swift */,
-				827581CD2A21F72100230168 /* LongDragView.swift */,
-				827581CF2A21F8C000230168 /* LongDragNative.swift */,
 				827581D12A2211BF00230168 /* DragState.swift */,
 			);
 			path = CustomListReordering;
@@ -163,14 +171,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				827581CE2A21F72100230168 /* LongDragView.swift in Sources */,
 				827581D22A2211BF00230168 /* DragState.swift in Sources */,
 				82FC77382A1E9C33000AE66A /* ReorderableList.swift in Sources */,
 				82FC77352A1E02D1000AE66A /* DropViewDelegate.swift in Sources */,
+				821E2A4A2A24B444005E71A6 /* ReorderableForEach.swift in Sources */,
 				82FC77332A1E0236000AE66A /* ColorItemView.swift in Sources */,
+				821E2A4C2A24B49B005E71A6 /* ReorderableForEachUser.swift in Sources */,
 				82FC77272A1E01A4000AE66A /* ContentView.swift in Sources */,
 				82FC77252A1E01A4000AE66A /* CustomDragAndDropTestApp.swift in Sources */,
-				827581D02A21F8C000230168 /* LongDragNative.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
