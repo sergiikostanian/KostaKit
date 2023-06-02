@@ -15,8 +15,8 @@ extension Color: Identifiable {
 struct ReorderableForEachUser: View {
 
     @State var colors: [Color] = [
-        .purple, .blue, .cyan, .green, .yellow, .orange, .red
-//        .red, .green, .blue, .yellow
+//        .purple, .blue, .cyan, .green, .yellow, .orange, .red
+        .red, .green, .blue, .yellow
     ]
 
     var body: some View {
@@ -29,7 +29,7 @@ struct ReorderableForEachUser: View {
                     isInclined: false
                 )
 
-            } reorderedItemBuilder: { color, isDragging in
+            } reorderedContent: { color, isDragging in
 
                 ColorItemView(
                     backgroundColor: color,
@@ -37,13 +37,9 @@ struct ReorderableForEachUser: View {
                     isInclined: isDragging
                 )
 
-            } onMove: { from, to in
-
-                guard let fromIndex = colors.firstIndex(where: { $0.id.hashValue == from }) else { return }
-                guard let toIndex = colors.firstIndex(where: { $0.id.hashValue == to }) else { return }
+            } onMove: { fromIndex, toIndex in
                 print("🌈 swap \(fromIndex) with \(toIndex)")
                 colors.swapAt(fromIndex, toIndex)
-
             }
         }
     }
