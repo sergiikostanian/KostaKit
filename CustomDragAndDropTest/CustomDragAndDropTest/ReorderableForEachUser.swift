@@ -16,36 +16,35 @@ struct ReorderableForEachUser: View {
 
     @State var colors: [Color] = [
         .purple, .blue, .cyan, .green, .yellow, .orange, .red
+//        .red, .green, .blue, .yellow
     ]
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
-                ReorderableForEach(colors) { color in
+            ReorderableForEach(colors, spacing: 20) { color in
 
-                    ColorItemView(
-                        backgroundColor: color,
-                        isInclined: false
-                    )
+                ColorItemView(
+                    backgroundColor: color,
+                    isScaled: false,
+                    isInclined: false
+                )
 
-                } reorderedItemBuilder: { color in
+            } reorderedItemBuilder: { color, isDragging in
 
-                    ColorItemView(
-                        backgroundColor: color,
-                        isInclined: true
-                    )
+                ColorItemView(
+                    backgroundColor: color,
+                    isScaled: true,
+                    isInclined: isDragging
+                )
 
-                } onMove: { from, to in
+            } onMove: { from, to in
 
-                    guard let fromIndex = colors.firstIndex(where: { $0.id.hashValue == from }) else { return }
-                    guard let toIndex = colors.firstIndex(where: { $0.id.hashValue == to }) else { return }
-                    print("🌈 swap \(fromIndex) with \(toIndex)")
-//                    withAnimation {
-                        colors.swapAt(fromIndex, toIndex)
-//                    }
-                }
+                guard let fromIndex = colors.firstIndex(where: { $0.id.hashValue == from }) else { return }
+                guard let toIndex = colors.firstIndex(where: { $0.id.hashValue == to }) else { return }
+                print("🌈 swap \(fromIndex) with \(toIndex)")
+                colors.swapAt(fromIndex, toIndex)
+
             }
-            .padding()
         }
     }
 }

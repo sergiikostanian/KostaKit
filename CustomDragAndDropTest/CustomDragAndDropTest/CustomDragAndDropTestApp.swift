@@ -7,6 +7,8 @@ struct CustomDragAndDropTestApp: App {
 //            ReorderableList()
 //            ContentView()
             ReorderableForEachUser()
+//            DraggableCircle()
+//            ListView()
         }
     }
 }

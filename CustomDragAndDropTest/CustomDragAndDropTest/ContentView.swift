@@ -10,8 +10,10 @@ struct ContentView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 10) {
 
+                let _ = print("🌈 DRAW")
+
                 ForEach(colors, id: \.self) { color in
-                    ColorItemView(backgroundColor: color, isInclined: color == draggedColor && !showNotMovingItems)
+                    ColorItemView(backgroundColor: color, isScaled: false, isInclined: color == draggedColor && !showNotMovingItems)
                         .onDrag {
                             self.draggedColor = color
                             return NSItemProvider(object: "\(color)" as NSString)

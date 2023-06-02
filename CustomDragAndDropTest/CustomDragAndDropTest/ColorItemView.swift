@@ -3,6 +3,7 @@ import SwiftUI
 struct ColorItemView: View {
 
     let backgroundColor: Color
+    let isScaled: Bool
     let isInclined: Bool
 
     @State private var isAnimated = false
@@ -13,7 +14,7 @@ struct ColorItemView: View {
             Text(backgroundColor.description.capitalized)
             Spacer()
         }
-        .padding(.vertical, 40)
+        .frame(height: 100)
         .background(backgroundColor)
         .cornerRadius(20)
         .scaleEffect(isAnimated ? CGSize(width: 1.05, height: 1.05) : CGSize(width: 1, height: 1))
@@ -22,9 +23,9 @@ struct ColorItemView: View {
             .repeatForever(autoreverses: true),
             value: isAnimated
         )
-        .rotationEffect(.degrees(isAnimated ? 6 : 0))
+        .rotationEffect(.degrees(isInclined ? 6 : 0))
         .onAppear {
-            if isInclined {
+            if isScaled {
                 withAnimation(.easeInOut(duration: 0.1)) {
                     isAnimated = true
                 }

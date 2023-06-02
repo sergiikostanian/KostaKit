@@ -22,6 +22,7 @@ struct ReorderableList: View {
                         ZStack {
                             ColorItemView(
                                 backgroundColor: color,
+                                isScaled: false,
                                 isInclined: false
                             )
                             .opacity(dragState.isActive && color.id == viewModel.draggedItem ? 0 : 1)
@@ -64,6 +65,7 @@ struct ReorderableList: View {
                             if dragState.isActive, let draggedItem = viewModel.draggedItem, draggedItem == color.id {
                                 ColorItemView(
                                     backgroundColor: color,
+                                    isScaled: false,
                                     isInclined: dragState.isDragging
                                 )
                                 .zIndex(1)
