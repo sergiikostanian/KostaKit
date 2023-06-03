@@ -27,8 +27,6 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     @GestureState private var dragState = DragState.inactive
     @StateObject private var reorderState = ReorderState<Data>()
 
-    @State private var draftData: Data
-
     init(
         _ data: Data,
         spacing: CGFloat? = nil,
@@ -41,8 +39,6 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
         self.content = content
         self.reorderedContent = reorderedContent
         self.onMove = onMove
-
-        _draftData = State(initialValue: data)
     }
 
     var body: some View {
@@ -91,11 +87,11 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     }
 
     private func makeDraftForEach() -> some View {
-        VStack(spacing: spacing) {
-            ForEach(draftData) { element in
-                content(element)
-                    .opacity(element.id == reorderState.startElement?.id ? 0 : 1)
-            }
+        ForEach(data) { element in
+            content(element)
+                .opacity(element.id == reorderState.startElement?.id ? 0 : 1)
+                .position(reorderState.positions[element.id]!.center)
+                .animation(.default, value: reorderState.positions)
         }
     }
 
@@ -130,18 +126,20 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     }
 
     private func onDrag(_ value: DragGesture.Value) {
-        let dragLocation = CGPoint(
-            x: value.location.x,
-            y: value.location.y + reorderState.startPosition!.minY
-        )
+        Task(priority: .userInitiated) {
+            let dragLocation = CGPoint(
+                x: value.location.x,
+                y: value.location.y + reorderState.startPosition!.minY
+            )
 
-        guard let toIndex = reorderState.positions.first(where: { $0.value.contains(dragLocation) })?.key else { return }
-        guard let fromIndex = reorderState.startElement?.id else { return }
-        guard toIndex != fromIndex else { return }
+            guard let toIndex = reorderState.positions.first(where: { $0.value.contains(dragLocation) })?.key else { return }
+            guard let fromIndex = reorderState.startElement?.id else { return }
+            guard toIndex != fromIndex else { return }
 
-        print("✅ \(dragLocation.y)")
+            print("✅ \(dragLocation.y)")
 
-        swap(fromIndex, toIndex)
+            swap(fromIndex, toIndex)
+        }
     }
 
     private func swap(_ fromIndex: Data.Element.ID, _ toIndex: Data.Element.ID) {
@@ -149,31 +147,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
         let toValue = reorderState.positions[toIndex]
         reorderState.positions[fromIndex] = toValue
         reorderState.positions[toIndex] = fromValue
-
         reorderState.endElement = data.first(where: { $0.id == toIndex })
-
-        Task {
-            var arr = (self.draftData as! Array<Data.Element>)
-
-            guard let from = arr.firstIndex(where: { $0.id == fromIndex }) else { return }
-            guard let to = arr.firstIndex(where: { $0.id == toIndex }) else { return }
-
-            arr.swapAt(from, to)
-            withAnimation {
-                self.draftData = arr as! Data
-            }
-        }
-
-//        Task {
-//            guard let from = draftData.firstIndex(where: { $0.id == fromIndex }) else { return }
-//            guard let to = draftData.firstIndex(where: { $0.id == toIndex }) else { return }
-//
-//            withAnimation {
-//                draftData[from] =
-//                    .wrappedValue.swapAt(from, to)
-//            }
-//        }
-
     }
 
     private func onLongPressAndDragEnd() {
@@ -192,5 +166,11 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
             reorderState.startPosition = nil
         }
         print("🚀 END")
+    }
+}
+
+private extension CGRect {
+    var center: CGPoint {
+        CGPoint(x: origin.x + width/2, y: origin.y + height/2)
     }
 }
