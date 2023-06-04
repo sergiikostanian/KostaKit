@@ -24,6 +24,7 @@ struct ColorItemView: View {
             value: isAnimated
         )
         .rotationEffect(.degrees(isInclined ? 6 : 0))
+        .opacity(isScaled ? 0.9 : 1)
         .onAppear {
             if isScaled {
                 withAnimation(.easeInOut(duration: 0.1)) {

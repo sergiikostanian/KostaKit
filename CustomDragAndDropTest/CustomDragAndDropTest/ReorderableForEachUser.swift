@@ -15,8 +15,7 @@ extension Color: Identifiable {
 struct ReorderableForEachUser: View {
 
     @State var colors: [Color] = [
-//        .purple, .blue, .cyan, .green, .yellow, .orange, .red
-        .red, .green, .blue, .yellow
+        .purple, .blue, .cyan, .green, .yellow, .orange, .red
     ]
 
     var body: some View {

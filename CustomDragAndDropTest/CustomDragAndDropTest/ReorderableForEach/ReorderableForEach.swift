@@ -9,9 +9,9 @@ import SwiftUI
 
 private class ReorderState<Data: RandomAccessCollection>: ObservableObject where Data.Element : Identifiable {
     var startElement: Data.Element?
-    var endElement: Data.Element?
     var startPosition: CGRect?
     var positions: [Data.Element.ID: CGRect] = [:]
+    var swapStack: [Data.Element.ID] = []
 }
 
 struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where Data.Element : Identifiable {
@@ -144,22 +144,31 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
         let toValue = reorderState.positions[toIndex]
         reorderState.positions[fromIndex] = toValue
         reorderState.positions[toIndex] = fromValue
-        reorderState.endElement = data.first(where: { $0.id == toIndex })
+
+        guard let endElement = data.first(where: { $0.id == toIndex }) else { return }
+
+        if reorderState.swapStack.last == endElement.id {
+            reorderState.swapStack.removeLast()
+        } else {
+            reorderState.swapStack.append(endElement.id)
+        }
     }
 
     private func onLongPressAndDragEnd() {
         Task(priority: .userInitiated) {
             defer {
                 reorderState.startElement = nil
-                reorderState.endElement = nil
                 reorderState.startPosition = nil
+                reorderState.swapStack = []
             }
 
-            guard let startElement = reorderState.startElement else { return }
-            guard let endElement = reorderState.endElement else { return }
+            guard !reorderState.swapStack.isEmpty else { return }
 
-            guard let fromIndex = data.firstIndex(where: {$0.id == startElement.id}) as? Int else { return }
-            guard var toOffset =  data.firstIndex(where: {$0.id == endElement.id}) as? Int else { return }
+            guard let startElementId = reorderState.startElement?.id else { return }
+            guard let endElementId = reorderState.swapStack.last else { return }
+
+            guard let fromIndex = data.firstIndex(where: {$0.id == startElementId}) as? Int else { return }
+            guard var toOffset =  data.firstIndex(where: {$0.id == endElementId}) as? Int else { return }
 
             // Read this: https://developer.apple.com/documentation/swift/mutablecollection/move(fromoffsets:tooffset:)
             // and this: https://stackoverflow.com/questions/69321574/swift-array-move-function-doesnt-behave-as-you-would-expect-why
