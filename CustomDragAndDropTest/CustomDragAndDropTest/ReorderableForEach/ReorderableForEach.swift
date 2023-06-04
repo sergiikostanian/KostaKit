@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-private class ReorderState<Data: RandomAccessCollection>: ObservableObject where Data.Element : Identifiable {
-    var startElement: Data.Element?
-    var startPosition: CGRect?
-    var positions: [Data.Element.ID: CGRect] = [:]
-    var swapStack: [Data.Element.ID] = []
-}
-
 struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where Data.Element : Identifiable {
 
     private var data: Data
@@ -181,6 +174,13 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
             onMove?(fromIndex, toOffset)
         }
     }
+}
+
+private class ReorderState<Data: RandomAccessCollection>: ObservableObject where Data.Element : Identifiable {
+    var startElement: Data.Element?
+    var startPosition: CGRect?
+    var positions: [Data.Element.ID: CGRect] = [:]
+    var swapStack: [Data.Element.ID] = []
 }
 
 private extension CGRect {

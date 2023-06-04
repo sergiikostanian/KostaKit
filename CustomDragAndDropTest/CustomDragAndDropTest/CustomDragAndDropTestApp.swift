@@ -4,11 +4,7 @@ import SwiftUI
 struct CustomDragAndDropTestApp: App {
     var body: some Scene {
         WindowGroup {
-//            ReorderableList()
-//            ContentView()
             ReorderableForEachUser()
-//            DraggableCircle()
-//            ListView()
         }
     }
 }

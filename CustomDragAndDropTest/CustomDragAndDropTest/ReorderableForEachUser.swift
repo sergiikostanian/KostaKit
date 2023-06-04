@@ -15,7 +15,7 @@ extension Color: Identifiable {
 struct ReorderableForEachUser: View {
 
     @State var colors: [Color] = [
-        .purple, .blue, .cyan, .green, .yellow, .orange, .red
+        .red, .orange, .yellow, .green, .cyan, .blue, .purple
     ]
 
     var body: some View {
@@ -36,6 +36,7 @@ struct ReorderableForEachUser: View {
                 colors.move(fromOffsets: [fromIndex], toOffset: toOffset)
             }
             .padding(.top, 20)
+            .padding(.horizontal, 20)
         }
     }
 }
