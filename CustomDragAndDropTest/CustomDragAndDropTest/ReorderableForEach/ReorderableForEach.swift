@@ -15,7 +15,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     @ViewBuilder private var content: (Data.Element) -> Item
     @ViewBuilder private var reorderedContent: (Data.Element, DragState) -> Item
 
-    private var onMove: ((_ fromIndex: Int, _ toOffset: Int) -> Void)?
+    private var onMove: ((_ fromIndex: Data.Index, _ toOffset: Data.Index) -> Void)?
 
     @GestureState private var dragState = DragState.inactive
     @StateObject private var reorderState = ReorderState<Data>()
@@ -25,7 +25,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
         spacing: CGFloat? = nil,
         @ViewBuilder content: @escaping (Data.Element) -> Item,
         @ViewBuilder reorderedContent: @escaping (Data.Element, DragState) -> Item,
-        onMove: @escaping (_ fromIndex: Int, _ toOffset: Int) -> Void
+        onMove: @escaping (_ fromIndex: Data.Index, _ toOffset: Data.Index) -> Void
     ) {
         self.data = data
         self.spacing = spacing
@@ -56,23 +56,21 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     private func makeOriginalForEach() -> some View {
         VStack(spacing: spacing) {
             ForEach(data) { element in
-                    content(element)
+                content(element)
                     .opacity(dragState.isActive && element.id == reorderState.startElement?.id ? 0 : 1)
-                        .background(GeometryReader { geometry in
-                            Color.clear
-                                .onAppear {
-                                    reorderState.positions[element.id] = geometry.frame(
-                                        in: .named("ReorderableSpace")
-                                    )
-                                }
-                        })
-                        // Allows to have other gestures if put inside ScrollView
-                        .onTapGesture {
-                            /* Should be empty */
-                        }
-                        .gesture(
-                            makeLongPressAndDragGesture(for: element)
-                        )
+                    .background(GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                reorderState.positions[element.id] = geometry.frame(in: .named("ReorderableSpace"))
+                            }
+                    })
+                    // Allows to have other gestures if put inside ScrollView
+                    .onTapGesture {
+                        /* Should be empty */
+                    }
+                    .gesture(
+                        makeLongPressAndDragGesture(for: element)
+                    )
             }
         }
         .coordinateSpace(name: "ReorderableSpace")
@@ -83,7 +81,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
         ForEach(data) { element in
             content(element)
                 .opacity(element.id == reorderState.startElement?.id ? 0 : 1)
-                .position(reorderState.positions[element.id]!.center)
+                .position(reorderState.positions[element.id]?.center ?? .zero)
                 .animation(.default, value: reorderState.positions)
         }
     }
@@ -121,7 +119,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
         Task(priority: .userInitiated) {
             let dragLocation = CGPoint(
                 x: value.location.x,
-                y: value.location.y + reorderState.startPosition!.minY
+                y: value.location.y + (reorderState.startPosition?.minY ?? 0)
             )
 
             guard let toIndex = reorderState.positions.first(where: { $0.value.contains(dragLocation) })?.key else { return }
@@ -150,9 +148,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     private func onLongPressAndDragEnd() {
         Task(priority: .userInitiated) {
             defer {
-                reorderState.startElement = nil
-                reorderState.startPosition = nil
-                reorderState.swapStack = []
+                reorderState.reset()
             }
 
             guard !reorderState.swapStack.isEmpty else { return }
@@ -160,18 +156,19 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
             guard let startElementId = reorderState.startElement?.id else { return }
             guard let endElementId = reorderState.swapStack.last else { return }
 
-            guard let fromIndex = data.firstIndex(where: {$0.id == startElementId}) as? Int else { return }
-            guard var toOffset =  data.firstIndex(where: {$0.id == endElementId}) as? Int else { return }
+            guard let fromIndex = data.firstIndex(where: {$0.id == startElementId}) else { return }
+            guard let toIndex = data.firstIndex(where: {$0.id == endElementId}) else { return }
 
             // Read this: https://developer.apple.com/documentation/swift/mutablecollection/move(fromoffsets:tooffset:)
             // and this: https://stackoverflow.com/questions/69321574/swift-array-move-function-doesnt-behave-as-you-would-expect-why
             // to understand/recall the concept of moving items inside a Collection
             // to the specified destination offset
-            if fromIndex < toOffset {
-                toOffset += 1
+            var offset = toIndex
+            if fromIndex < toIndex {
+                offset = data.index(after: toIndex)
             }
 
-            onMove?(fromIndex, toOffset)
+            onMove?(fromIndex, offset)
         }
     }
 }
@@ -181,6 +178,12 @@ private class ReorderState<Data: RandomAccessCollection>: ObservableObject where
     var startPosition: CGRect?
     var positions: [Data.Element.ID: CGRect] = [:]
     var swapStack: [Data.Element.ID] = []
+
+    func reset() {
+        startElement = nil
+        startPosition = nil
+        swapStack = []
+    }
 }
 
 private extension CGRect {
