@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import AsyncAlgorithms
 
 private class ReorderingState<Data: RandomAccessCollection>: ObservableObject  {
     var reorderedElement: Data.Element?

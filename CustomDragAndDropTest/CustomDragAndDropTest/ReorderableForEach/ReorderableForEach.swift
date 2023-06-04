@@ -22,7 +22,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     @ViewBuilder private var content: (Data.Element) -> Item
     @ViewBuilder private var reorderedContent: (Data.Element, Bool) -> Item
 
-    private var onMove: ((_ from: Data.Index, _ to: Data.Index) async -> Void)?
+    private var onMove: ((_ fromIndex: Int, _ toOffset: Int) -> Void)?
 
     @GestureState private var dragState = DragState.inactive
     @StateObject private var reorderState = ReorderState<Data>()
@@ -32,7 +32,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
         spacing: CGFloat? = nil,
         @ViewBuilder content: @escaping (Data.Element) -> Item,
         @ViewBuilder reorderedContent: @escaping (Data.Element, Bool) -> Item,
-        onMove: @escaping (_ from: Data.Index, _ to: Data.Index) async -> Void
+        onMove: @escaping (_ fromIndex: Int, _ toOffset: Int) -> Void
     ) {
         self.data = data
         self.spacing = spacing
@@ -120,9 +120,8 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     }
 
     private func onLongPress(_ element: Data.Element) {
-        self.reorderState.startElement = element
-        self.reorderState.startPosition = self.reorderState.positions[element.id]!
-        print("🚀 LONG PRESS")
+        reorderState.startElement = element
+        reorderState.startPosition = reorderState.positions[element.id]
     }
 
     private func onDrag(_ value: DragGesture.Value) {
@@ -136,13 +135,11 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
             guard let fromIndex = reorderState.startElement?.id else { return }
             guard toIndex != fromIndex else { return }
 
-            print("✅ \(dragLocation.y)")
-
-            swap(fromIndex, toIndex)
+            swapElements(fromIndex, toIndex)
         }
     }
 
-    private func swap(_ fromIndex: Data.Element.ID, _ toIndex: Data.Element.ID) {
+    private func swapElements(_ fromIndex: Data.Element.ID, _ toIndex: Data.Element.ID) {
         let fromValue = reorderState.positions[fromIndex]
         let toValue = reorderState.positions[toIndex]
         reorderState.positions[fromIndex] = toValue
@@ -151,26 +148,37 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     }
 
     private func onLongPressAndDragEnd() {
-        Task {
+        Task(priority: .userInitiated) {
+            defer {
+                reorderState.startElement = nil
+                reorderState.endElement = nil
+                reorderState.startPosition = nil
+            }
+
             guard let startElement = reorderState.startElement else { return }
             guard let endElement = reorderState.endElement else { return }
-            guard startElement.id != endElement.id else { return }
 
-            guard let fromIndex = data.firstIndex(where: {$0.id == startElement.id}) else { return }
-            guard let toIndex =  data.firstIndex(where: {$0.id == endElement.id}) else { return }
+            guard let fromIndex = data.firstIndex(where: {$0.id == startElement.id}) as? Int else { return }
+            guard var toOffset =  data.firstIndex(where: {$0.id == endElement.id}) as? Int else { return }
 
-            await onMove?(fromIndex, toIndex)
+            // Read this: https://developer.apple.com/documentation/swift/mutablecollection/move(fromoffsets:tooffset:)
+            // and this: https://stackoverflow.com/questions/69321574/swift-array-move-function-doesnt-behave-as-you-would-expect-why
+            // to understand/recall the concept of moving items inside a Collection
+            // to the specified destination offset
+            if fromIndex < toOffset {
+                toOffset += 1
+            }
 
-            reorderState.startElement = nil
-            reorderState.endElement = nil
-            reorderState.startPosition = nil
+            onMove?(fromIndex, toOffset)
         }
-        print("🚀 END")
     }
 }
 
 private extension CGRect {
     var center: CGPoint {
-        CGPoint(x: origin.x + width/2, y: origin.y + height/2)
+        CGPoint(
+            x: origin.x + width/2,
+            y: origin.y + height/2
+        )
     }
 }

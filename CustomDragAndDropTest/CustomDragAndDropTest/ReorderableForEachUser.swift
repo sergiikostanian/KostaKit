@@ -22,25 +22,21 @@ struct ReorderableForEachUser: View {
     var body: some View {
         ScrollView {
             ReorderableForEach(colors, spacing: 20) { color in
-
                 ColorItemView(
                     backgroundColor: color,
                     isScaled: false,
                     isInclined: false
                 )
-
             } reorderedContent: { color, isDragging in
-
                 ColorItemView(
                     backgroundColor: color,
                     isScaled: true,
                     isInclined: isDragging
                 )
-
-            } onMove: { fromIndex, toIndex in
-                print("🌈 swap \(fromIndex) with \(toIndex)")
-                colors.swapAt(fromIndex, toIndex)
+            } onMove: { fromIndex, toOffset in
+                colors.move(fromOffsets: [fromIndex], toOffset: toOffset)
             }
+            .padding(.top, 20)
         }
     }
 }
