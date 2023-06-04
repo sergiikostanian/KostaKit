@@ -14,7 +14,7 @@ struct ColorItemView: View {
             Text(backgroundColor.description.capitalized)
             Spacer()
         }
-        .frame(height: 100)
+        .frame(height: 80)
         .background(backgroundColor)
         .cornerRadius(20)
         .scaleEffect(isAnimated ? CGSize(width: 1.05, height: 1.05) : CGSize(width: 1, height: 1))

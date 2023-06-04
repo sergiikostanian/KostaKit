@@ -26,11 +26,11 @@ struct ReorderableForEachUser: View {
                     isScaled: false,
                     isInclined: false
                 )
-            } reorderedContent: { color, isDragging in
+            } reorderedContent: { color, dragState in
                 ColorItemView(
                     backgroundColor: color,
                     isScaled: true,
-                    isInclined: isDragging
+                    isInclined: dragState.isDragging
                 )
             } onMove: { fromIndex, toOffset in
                 colors.move(fromOffsets: [fromIndex], toOffset: toOffset)

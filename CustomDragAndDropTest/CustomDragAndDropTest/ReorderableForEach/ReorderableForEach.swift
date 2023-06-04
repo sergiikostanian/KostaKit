@@ -13,7 +13,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     private var spacing: CGFloat?
 
     @ViewBuilder private var content: (Data.Element) -> Item
-    @ViewBuilder private var reorderedContent: (Data.Element, Bool) -> Item
+    @ViewBuilder private var reorderedContent: (Data.Element, DragState) -> Item
 
     private var onMove: ((_ fromIndex: Int, _ toOffset: Int) -> Void)?
 
@@ -24,7 +24,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
         _ data: Data,
         spacing: CGFloat? = nil,
         @ViewBuilder content: @escaping (Data.Element) -> Item,
-        @ViewBuilder reorderedContent: @escaping (Data.Element, Bool) -> Item,
+        @ViewBuilder reorderedContent: @escaping (Data.Element, DragState) -> Item,
         onMove: @escaping (_ fromIndex: Int, _ toOffset: Int) -> Void
     ) {
         self.data = data
@@ -44,7 +44,7 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
 
                 makeDraftForEach()
 
-                reorderedContent(reorderElement, dragState.isDragging)
+                reorderedContent(reorderElement, dragState)
                     .offset(
                         x: startPosition.origin.x + dragState.translation.width,
                         y: startPosition.origin.y + dragState.translation.height
