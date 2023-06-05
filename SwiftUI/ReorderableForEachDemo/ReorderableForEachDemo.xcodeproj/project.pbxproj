@@ -10,7 +10,7 @@
 		821E2A4A2A24B444005E71A6 /* ReorderableForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821E2A492A24B444005E71A6 /* ReorderableForEach.swift */; };
 		821E2A4C2A24B49B005E71A6 /* ReorderableForEachUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821E2A4B2A24B49B005E71A6 /* ReorderableForEachUser.swift */; };
 		827581D22A2211BF00230168 /* DragState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827581D12A2211BF00230168 /* DragState.swift */; };
-		82FC77252A1E01A4000AE66A /* CustomDragAndDropTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FC77242A1E01A4000AE66A /* CustomDragAndDropTestApp.swift */; };
+		82FC77252A1E01A4000AE66A /* ReorderableForEachDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FC77242A1E01A4000AE66A /* ReorderableForEachDemo.swift */; };
 		82FC77292A1E01A5000AE66A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82FC77282A1E01A5000AE66A /* Assets.xcassets */; };
 		82FC772C2A1E01A5000AE66A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82FC772B2A1E01A5000AE66A /* Preview Assets.xcassets */; };
 		82FC77332A1E0236000AE66A /* ColorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FC77322A1E0236000AE66A /* ColorItemView.swift */; };
@@ -20,8 +20,8 @@
 		821E2A492A24B444005E71A6 /* ReorderableForEach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableForEach.swift; sourceTree = "<group>"; };
 		821E2A4B2A24B49B005E71A6 /* ReorderableForEachUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableForEachUser.swift; sourceTree = "<group>"; };
 		827581D12A2211BF00230168 /* DragState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragState.swift; sourceTree = "<group>"; };
-		82FC77212A1E01A4000AE66A /* CustomDragAndDropTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomDragAndDropTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		82FC77242A1E01A4000AE66A /* CustomDragAndDropTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDragAndDropTestApp.swift; sourceTree = "<group>"; };
+		82FC77212A1E01A4000AE66A /* ReorderableForEachDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReorderableForEachDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		82FC77242A1E01A4000AE66A /* ReorderableForEachDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableForEachDemo.swift; sourceTree = "<group>"; };
 		82FC77282A1E01A5000AE66A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		82FC772B2A1E01A5000AE66A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		82FC77322A1E0236000AE66A /* ColorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorItemView.swift; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		82FC77182A1E01A4000AE66A = {
 			isa = PBXGroup;
 			children = (
-				82FC77232A1E01A4000AE66A /* CustomDragAndDropTest */,
+				82FC77232A1E01A4000AE66A /* ReorderableForEachDemo */,
 				82FC77282A1E01A5000AE66A /* Assets.xcassets */,
 				82FC77222A1E01A4000AE66A /* Products */,
 			);
@@ -59,21 +59,21 @@
 		82FC77222A1E01A4000AE66A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				82FC77212A1E01A4000AE66A /* CustomDragAndDropTest.app */,
+				82FC77212A1E01A4000AE66A /* ReorderableForEachDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		82FC77232A1E01A4000AE66A /* CustomDragAndDropTest */ = {
+		82FC77232A1E01A4000AE66A /* ReorderableForEachDemo */ = {
 			isa = PBXGroup;
 			children = (
-				82FC77242A1E01A4000AE66A /* CustomDragAndDropTestApp.swift */,
+				82FC77242A1E01A4000AE66A /* ReorderableForEachDemo.swift */,
 				82FC77322A1E0236000AE66A /* ColorItemView.swift */,
 				821E2A4B2A24B49B005E71A6 /* ReorderableForEachUser.swift */,
 				821E2A482A24B41A005E71A6 /* ReorderableForEach */,
 				82FC772A2A1E01A5000AE66A /* Preview Content */,
 			);
-			path = CustomDragAndDropTest;
+			path = ReorderableForEachDemo;
 			sourceTree = "<group>";
 		};
 		82FC772A2A1E01A5000AE66A /* Preview Content */ = {
@@ -87,9 +87,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		82FC77202A1E01A4000AE66A /* CustomDragAndDropTest */ = {
+		82FC77202A1E01A4000AE66A /* ReorderableForEachDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 82FC772F2A1E01A5000AE66A /* Build configuration list for PBXNativeTarget "CustomDragAndDropTest" */;
+			buildConfigurationList = 82FC772F2A1E01A5000AE66A /* Build configuration list for PBXNativeTarget "ReorderableForEachDemo" */;
 			buildPhases = (
 				82FC771D2A1E01A4000AE66A /* Sources */,
 				82FC771E2A1E01A4000AE66A /* Frameworks */,
@@ -99,11 +99,11 @@
 			);
 			dependencies = (
 			);
-			name = CustomDragAndDropTest;
+			name = ReorderableForEachDemo;
 			packageProductDependencies = (
 			);
 			productName = CustomDragAndDropTest;
-			productReference = 82FC77212A1E01A4000AE66A /* CustomDragAndDropTest.app */;
+			productReference = 82FC77212A1E01A4000AE66A /* ReorderableForEachDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -121,7 +121,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 82FC771C2A1E01A4000AE66A /* Build configuration list for PBXProject "CustomDragAndDropTest" */;
+			buildConfigurationList = 82FC771C2A1E01A4000AE66A /* Build configuration list for PBXProject "ReorderableForEachDemo" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -136,7 +136,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				82FC77202A1E01A4000AE66A /* CustomDragAndDropTest */,
+				82FC77202A1E01A4000AE66A /* ReorderableForEachDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -162,7 +162,7 @@
 				821E2A4A2A24B444005E71A6 /* ReorderableForEach.swift in Sources */,
 				82FC77332A1E0236000AE66A /* ColorItemView.swift in Sources */,
 				821E2A4C2A24B49B005E71A6 /* ReorderableForEachUser.swift in Sources */,
-				82FC77252A1E01A4000AE66A /* CustomDragAndDropTestApp.swift in Sources */,
+				82FC77252A1E01A4000AE66A /* ReorderableForEachDemo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +290,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CustomDragAndDropTest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ReorderableForEachDemo/Preview Content\"";
 				DEVELOPMENT_TEAM = T75B68U5S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -304,7 +304,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.skostanian.CustomDragAndDropTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skostanian.ReorderableForEachDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -319,7 +319,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CustomDragAndDropTest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ReorderableForEachDemo/Preview Content\"";
 				DEVELOPMENT_TEAM = T75B68U5S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -333,7 +333,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.skostanian.CustomDragAndDropTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skostanian.ReorderableForEachDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -344,7 +344,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		82FC771C2A1E01A4000AE66A /* Build configuration list for PBXProject "CustomDragAndDropTest" */ = {
+		82FC771C2A1E01A4000AE66A /* Build configuration list for PBXProject "ReorderableForEachDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				82FC772D2A1E01A5000AE66A /* Debug */,
@@ -353,7 +353,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		82FC772F2A1E01A5000AE66A /* Build configuration list for PBXNativeTarget "CustomDragAndDropTest" */ = {
+		82FC772F2A1E01A5000AE66A /* Build configuration list for PBXNativeTarget "ReorderableForEachDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				82FC77302A1E01A5000AE66A /* Debug */,

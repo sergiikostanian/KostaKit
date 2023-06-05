@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct CustomDragAndDropTestApp: App {
+struct ReorderableForEachDemo: App {
     var body: some Scene {
         WindowGroup {
             ReorderableForEachUser()
