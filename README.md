@@ -1,6 +1,6 @@
 # KostaKit
 
-Custom iOS controls written in Swift 🔥🔥🔥.
+Custom UIKit and SwiftUI components written in Swift 🔥🔥🔥.
 
 # License
 
