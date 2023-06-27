@@ -173,19 +173,6 @@ struct ReorderableForEach<Item: View, Data: RandomAccessCollection>: View where 
     }
 }
 
-private class ReorderState<Data: RandomAccessCollection>: ObservableObject where Data.Element : Identifiable {
-    var startElement: Data.Element?
-    var startPosition: CGRect?
-    var positions: [Data.Element.ID: CGRect] = [:]
-    var swapStack: [Data.Element.ID] = []
-
-    func reset() {
-        startElement = nil
-        startPosition = nil
-        swapStack = []
-    }
-}
-
 private extension CGRect {
     var center: CGPoint {
         CGPoint(
